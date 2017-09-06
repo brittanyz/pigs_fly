@@ -11,9 +11,12 @@ Users will be able to
 In addition this project will include an about modal describing the rules of the game and a production README.
 
 ### Technologies, Libraries, APIs
-Honestly, at this point I have absolutely no idea how I am going to build this...
+My plan is to use only JS and canvas, but it's hard to plan for this seeing as though I have very limited knowledge and experience with it.
 
 ### Timeline
-Phase 1: Introduction and help modal
-Phase 2: Implement the moving landscape
-Phase 3: Jumping, any visual representation of points, and Game Over
+* Phase 1: Introduction and help modal
+* Phase 2: Implement the moving landscape
+* Phase 3: Jumping, any visual representation of points, and Game Over
+
+### Wireframe
+![](/wireframe.png)
