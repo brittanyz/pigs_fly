@@ -8,12 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
   game.displayRoad();
   game.displayWalker();
   game.run();
-  window.drawMan = (i) => {
-    // debugger
-    ctx.drawImage(game.walker.man[i], 20, 260, 30, 60);
-  };
-  window.ctx = ctx;
-  window.walker = game.walker.man;
+  window.prom = new Promise( (resolve, reject) => {
+    for (let i = 0; i < 100; i++) {console.log(++i);}
+    resolve();
+  }).then(console.log("done"));
+  console.log("interrupt");
 });
 
 
@@ -25,12 +24,12 @@ class Game {
     this.xCord = 780;
     this.secondxCord = 400;
     this.yCord = 320;
-    this.timer = 5;
+    this.timer = 7;
     this.i = Math.floor(Math.random() * 6);
-
     this.document = document;
     this.ctx = ctx;
     this.interval = {};
+    this.jumped = false;
   }
 
   run(){
@@ -43,16 +42,26 @@ class Game {
         clearInterval(this.interval);
         this.ctx.clearRect(0, 0, 800, 320);
       }
+      if (e.keyCode === 32 && !this.jumped) {
+        this.jumped = true;
+        const prom = new Promise( (resolve, reject) => {
+          this.walker.jump(this.ctx, this.walker.man[3], 100, 260, 30, 60);
+          resolve();
+        }).then(() => {
+          console.log("hi");
+          this.jumped = false;
+        });
+      }
     });
   }
 
   displayRoad() {
     //##### random rocks #####
     // for (let i = 0; i < 60; i++) {
-      // let x = Math.random() * 800;
-      // let y = Math.random() * (340 - 322) + 322;
-      // this.ctx.rect(x, y, 5, 1);
-      // this.ctx.fill();
+    //   let x = Math.random() * 800;
+    //   let y = Math.random() * (340 - 322) + 322;
+    //   this.ctx.rect(x, y, 5, 1);
+    //   this.ctx.fill();
     // }
     this.ctx.rect(0, 320, 800, 3);
     this.ctx.fill();
@@ -60,10 +69,11 @@ class Game {
 
   displayWalker() {
     let i = 0;
-    this.interval = setInterval( () => {
+    setInterval( () => {
       i = (i + 1) % 4;
-      this.ctx.drawImage(this.walker.man[i], 20, 260, 30, 60);
-    }, 500);
+      this.ctx.clearRect(50, 260, 30, 60);
+      this.ctx.drawImage(this.walker.man[i], 100, 260, 30, 60);
+    }, 100);
   }
 
   start(i, x, timer, t) {
@@ -79,5 +89,6 @@ class Game {
       }
     }, timer);
   }
+
 
 }
