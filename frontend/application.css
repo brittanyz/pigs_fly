@@ -1,9 +1,12 @@
 body {
+  background-color: lightyellow;
   display: flex;
   justify-content: center;
   padding-top: 50px;
 }
 
 canvas {
+  /*background-color: #c4e3ed;*/
+  background-color: white;
   border: 10px solid black;
 }
