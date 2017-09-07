@@ -4,22 +4,18 @@ const Walker = require('./frontend/walker');
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
-  const game = new Game(document, ctx);
+  const walker = new Walker();
+  const game = new Game(document, ctx, walker);
   game.displayRoad();
-  game.displayWalker();
+  walker.walk(ctx);
   game.run();
-  window.prom = new Promise( (resolve, reject) => {
-    for (let i = 0; i < 100; i++) {console.log(++i);}
-    resolve();
-  }).then(console.log("done"));
-  console.log("interrupt");
 });
 
 
 class Game {
 
-  constructor(document, ctx) {
-    this.walker = new Walker();
+  constructor(document, ctx, walker) {
+    this.walker = walker;
     this.tree = new Tree();
     this.xCord = 780;
     this.secondxCord = 400;
@@ -29,7 +25,6 @@ class Game {
     this.document = document;
     this.ctx = ctx;
     this.interval = {};
-    this.jumped = false;
   }
 
   run(){
@@ -42,15 +37,9 @@ class Game {
         clearInterval(this.interval);
         this.ctx.clearRect(0, 0, 800, 320);
       }
-      if (e.keyCode === 32 && !this.jumped) {
-        this.jumped = true;
-        const prom = new Promise( (resolve, reject) => {
-          this.walker.jump(this.ctx, this.walker.man[3], 100, 260, 30, 60);
-          resolve();
-        }).then(() => {
-          console.log("hi");
-          this.jumped = false;
-        });
+      if (e.keyCode === 32) {
+        // clearInterval(this.walk);
+        this.walker.jump(this.ctx, this.walker.man[3], 30, 60);
       }
     });
   }
@@ -65,15 +54,6 @@ class Game {
     // }
     this.ctx.rect(0, 320, 800, 3);
     this.ctx.fill();
-  }
-
-  displayWalker() {
-    let i = 0;
-    setInterval( () => {
-      i = (i + 1) % 4;
-      this.ctx.clearRect(50, 260, 30, 60);
-      this.ctx.drawImage(this.walker.man[i], 100, 260, 30, 60);
-    }, 100);
   }
 
   start(i, x, timer, t) {

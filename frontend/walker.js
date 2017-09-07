@@ -9,25 +9,46 @@ class Walker {
     this.walker3.src = './images/man3.png';
     this.walker4 = new Image();
     this.walker4.src = './images/man4.png';
+    this.jumped = false;
+    this.stroll = null;
+    this.x = 100;
+    this.y = 260;
+
 
     this.man = [this.walker1, this.walker2, this.walker3, this.walker4];
   }
 
-  jump (ctx, img, x, y, width, height) {
+  jump (ctx, img, width, height) {
     let up = true;
-    const jumping = setInterval( () => {
-      ctx.clearRect(100, 260, 30, 60);
-      ctx.clearRect(x, y, width, height);
-      if (y >= 110 && up) {
-        if (y === 110) up = false;
-        y--;
-      }
-      else y++;
-      ctx.drawImage(img, x, y, width, height);
-      if (y === 260) clearInterval(jumping);
-    }, 5.5);
-    console.log("done jumpung");
+    clearInterval(this.stroll);
+    if (this.y === 260) {
+      const jumping = setInterval( () => {
+        // ctx.clearRect(100, 260, 30, 60);
+        ctx.clearRect(this.x, this.y, width, height);
+        if (this.y >= 110 && up) {
+          if (this.y === 110) {up = false;}
+          this.y--;
+        }
+        else this.y++;
+        ctx.drawImage(img, this.x, this.y, width, height);
+        if (this.y === 260) {
+          this.walk(ctx);
+          clearInterval(jumping);
+        }
+      }, 5.5);
+    }
   }
+
+  walk (ctx) {
+    let i = 0;
+    this.stroll = setInterval( () => {
+
+      i = (i + 1) % 4;
+      ctx.clearRect(50, 260, 30, 60);
+      ctx.drawImage(this.man[i], 100, 260, 30, 60);
+    }, 100);
+  }
+
 
 }
 

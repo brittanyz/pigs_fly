@@ -73,22 +73,18 @@ const Walker = __webpack_require__(3);
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
-  const game = new Game(document, ctx);
+  const walker = new Walker();
+  const game = new Game(document, ctx, walker);
   game.displayRoad();
-  game.displayWalker();
+  walker.walk(ctx);
   game.run();
-  window.prom = new Promise( (resolve, reject) => {
-    for (let i = 0; i < 100; i++) {console.log(++i);}
-    resolve();
-  }).then(console.log("done"));
-  console.log("interrupt");
 });
 
 
 class Game {
 
-  constructor(document, ctx) {
-    this.walker = new Walker();
+  constructor(document, ctx, walker) {
+    this.walker = walker;
     this.tree = new Tree();
     this.xCord = 780;
     this.secondxCord = 400;
@@ -98,7 +94,6 @@ class Game {
     this.document = document;
     this.ctx = ctx;
     this.interval = {};
-    this.jumped = false;
   }
 
   run(){
@@ -111,15 +106,9 @@ class Game {
         clearInterval(this.interval);
         this.ctx.clearRect(0, 0, 800, 320);
       }
-      if (e.keyCode === 32 && !this.jumped) {
-        this.jumped = true;
-        const prom = new Promise( (resolve, reject) => {
-          this.walker.jump(this.ctx, this.walker.man[3], 100, 260, 30, 60);
-          resolve();
-        }).then(() => {
-          console.log("hi");
-          this.jumped = false;
-        });
+      if (e.keyCode === 32) {
+        // clearInterval(this.walk);
+        this.walker.jump(this.ctx, this.walker.man[3], 30, 60);
       }
     });
   }
@@ -134,15 +123,6 @@ class Game {
     // }
     this.ctx.rect(0, 320, 800, 3);
     this.ctx.fill();
-  }
-
-  displayWalker() {
-    let i = 0;
-    setInterval( () => {
-      i = (i + 1) % 4;
-      this.ctx.clearRect(50, 260, 30, 60);
-      this.ctx.drawImage(this.walker.man[i], 100, 260, 30, 60);
-    }, 100);
   }
 
   start(i, x, timer, t) {
@@ -206,25 +186,46 @@ class Walker {
     this.walker3.src = './images/man3.png';
     this.walker4 = new Image();
     this.walker4.src = './images/man4.png';
+    this.jumped = false;
+    this.stroll = null;
+    this.x = 100;
+    this.y = 260;
+
 
     this.man = [this.walker1, this.walker2, this.walker3, this.walker4];
   }
 
-  jump (ctx, img, x, y, width, height) {
+  jump (ctx, img, width, height) {
     let up = true;
-    const jumping = setInterval( () => {
-      ctx.clearRect(100, 260, 30, 60);
-      ctx.clearRect(x, y, width, height);
-      if (y >= 110 && up) {
-        if (y === 110) up = false;
-        y--;
-      }
-      else y++;
-      ctx.drawImage(img, x, y, width, height);
-      if (y === 260) clearInterval(jumping);
-    }, 5.5);
-    console.log("done jumpung");
+    clearInterval(this.stroll);
+    if (this.y === 260) {
+      const jumping = setInterval( () => {
+        // ctx.clearRect(100, 260, 30, 60);
+        ctx.clearRect(this.x, this.y, width, height);
+        if (this.y >= 110 && up) {
+          if (this.y === 110) {up = false;}
+          this.y--;
+        }
+        else this.y++;
+        ctx.drawImage(img, this.x, this.y, width, height);
+        if (this.y === 260) {
+          this.walk(ctx);
+          clearInterval(jumping);
+        }
+      }, 5.5);
+    }
   }
+
+  walk (ctx) {
+    let i = 0;
+    this.stroll = setInterval( () => {
+
+      i = (i + 1) % 4;
+      ctx.clearRect(50, 260, 30, 60);
+      ctx.drawImage(this.man[i], 100, 260, 30, 60);
+    }, 100);
+  }
+
 
 }
 
