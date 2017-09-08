@@ -17,13 +17,13 @@ class Walker {
     this.dead = false;
     this.x = 100;
     this.y = 260;
-    this.time = 6;
+    this.time = 10;
 
     this.man = [this.walker1, this.walker2, this.walker3, this.walker4];
   }
 
   jump (ctx, img, width, height, count) {
-    console.log(count);
+    // console.log(count);
     let up = true;
     clearInterval(this.stroll);
     if (this.y === 260) {
@@ -34,19 +34,19 @@ class Walker {
           // ctx.rotate(20 * Math.PI/180);
         }
         ctx.clearRect(this.x, this.y, width, height);
-        if (this.y >= 95 && up) {
-          if (this.y === 95) {up = false;}
-          this.y--;
+        if (this.y >= 100 && up) {
+          if (this.y === 100) {up = false;}
+          this.y -= 5;
         }
-        else this.y++;
+        else this.y += 5;
         ctx.drawImage(img, this.x, this.y, width, height);
         if (this.y === 260 && !this.dead) {
           this.walk(ctx);
           clearInterval(jumping);
         }
-        if (count % 5 === 1) {
-          this.time -= 0.002;
-        }
+        // if (count % 5 === 1) {
+        //   this.time -= 0.002;
+        // }
       }, this.time);
     }
   }
@@ -63,6 +63,13 @@ class Walker {
   die(ctx, img, width, height) {
     this.jump(ctx, img, width, height);
     this.dead = true;
+    this.gameOver(ctx);
+  }
+
+  gameOver(ctx) {
+   ctx.fillStyle = "gray";
+   ctx.font = '75px Inconsolata';
+   ctx.fillText('Game Over', 215, 150);
   }
 
 

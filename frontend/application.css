@@ -9,4 +9,6 @@ canvas {
   /*background-color: #c4e3ed;*/
   background-color: white;
   border: 10px solid black;
+  font-family: 'Inconsolata', monospace;
+  /*font-size: 75px;*/
 }

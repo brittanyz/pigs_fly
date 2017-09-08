@@ -17,10 +17,12 @@ class Game {
   constructor(document, ctx, walker) {
     this.walker = walker;
     this.tree = new Tree();
-    this.xCord = 780;
+    this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
     this.secondxCord = 400;
     this.yCord = 320;
     this.timer = 7;
+    this.pixel = 3;
+    this.points = 0;
     this.i = Math.floor(Math.random() * 6);
     this.document = document;
     this.ctx = ctx;
@@ -58,28 +60,36 @@ class Game {
 
   start(i, x, timer, t) {
     this.interval = setInterval( () => {
+      console.log(x);
       this.ctx.clearRect(x, 220, 70, 100);
-      this.ctx.drawImage(t.trees[i], x--, 220, 60, 100);
-
+      this.ctx.drawImage(t.trees[i], x -= this.pixel, 220, 60, 100);
       // collision
-      if ((x === this.walker.x && this.walker.y + 60 > 220) ||
-          (x + 55 === this.walker.x && this.walker.y + 60 > 220)) {
+      if ((Math.floor(x) === (this.walker.x + 30) && this.walker.y - 60 > 220) &&
+          (Math.floor(x) + 60 === (this.walker.x) && this.walker.y - 60 > 220)) {
          clearInterval(this.interval);
          this.ctx.clearRect(x, 220, 70, 100);
          this.walker.die(this.ctx, this.walker.man[3], 30, 60);
        }
 
        // start new tree if current tree is off the canvas
-      if (x === -70) {
+      if (x < -70) {
+        this.points += 10 * (Math.floor(this.count / 2) || 1);
+        this.ctx.clearRect(700, 20, 100, 100);
+        this.displayPoints(this.points);
         this.count++;
-        if (this.count % 2 === 0) { this.timer--; }
+        if (this.count % 4 === 0) { this.pixel += 0.5; }
         clearInterval(this.interval);
-        this.xCord = 780;
+        this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
         i = parseInt(Math.random() * 6);
         this.start(i, this.xCord, timer, t);
       }
     }, this.timer);
   }
 
+  displayPoints(points) {
+    this.ctx.fillStyle = "#ff4d4d";
+    this.ctx.font = '25px Inconsolata';
+    this.ctx.fillText(`Points: ${points}`, 620, 75);
+  }
 
 }
