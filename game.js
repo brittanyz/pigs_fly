@@ -25,6 +25,7 @@ class Game {
     this.document = document;
     this.ctx = ctx;
     this.interval = {};
+    this.count = 0;
   }
 
   run(){
@@ -38,7 +39,7 @@ class Game {
         this.ctx.clearRect(0, 0, 800, 320);
       }
       if (e.keyCode === 32) {
-        this.walker.jump(this.ctx, this.walker.man[3], 30, 60);
+        this.walker.jump(this.ctx, this.walker.man[3], 30, 60, this.count);
       }
     });
   }
@@ -70,12 +71,14 @@ class Game {
 
        // start new tree if current tree is off the canvas
       if (x === -70) {
+        this.count++;
+        if (this.count % 2 === 0) { this.timer--; }
         clearInterval(this.interval);
-        this.xCord = 695;
+        this.xCord = 780;
         i = parseInt(Math.random() * 6);
         this.start(i, this.xCord, timer, t);
       }
-    }, timer);
+    }, this.timer);
   }
 
 

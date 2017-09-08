@@ -94,6 +94,7 @@ class Game {
     this.document = document;
     this.ctx = ctx;
     this.interval = {};
+    this.count = 0;
   }
 
   run(){
@@ -107,7 +108,7 @@ class Game {
         this.ctx.clearRect(0, 0, 800, 320);
       }
       if (e.keyCode === 32) {
-        this.walker.jump(this.ctx, this.walker.man[3], 30, 60);
+        this.walker.jump(this.ctx, this.walker.man[3], 30, 60, this.count);
       }
     });
   }
@@ -139,12 +140,14 @@ class Game {
 
        // start new tree if current tree is off the canvas
       if (x === -70) {
+        this.count++;
+        if (this.count % 2 === 0) { this.timer--; }
         clearInterval(this.interval);
-        this.xCord = 695;
+        this.xCord = 780;
         i = parseInt(Math.random() * 6);
         this.start(i, this.xCord, timer, t);
       }
-    }, timer);
+    }, this.timer);
   }
 
 
@@ -195,16 +198,19 @@ class Walker {
     this.walker4.src = './images/man4.png';
     this.skull = new Image();
     this.skull.src = './images/skull.png';
-    this.jumped = false;
+
+    // this.jumped = false;
     this.stroll = null;
     this.dead = false;
     this.x = 100;
     this.y = 260;
+    this.time = 6;
 
     this.man = [this.walker1, this.walker2, this.walker3, this.walker4];
   }
 
-  jump (ctx, img, width, height) {
+  jump (ctx, img, width, height, count) {
+    console.log(count);
     let up = true;
     clearInterval(this.stroll);
     if (this.y === 260) {
@@ -213,7 +219,6 @@ class Walker {
           ctx.rect(0, 320, 800, 3);
           ctx.fill();
           // ctx.rotate(20 * Math.PI/180);
-          // img.style.transform = "rotate(10deg)";
         }
         ctx.clearRect(this.x, this.y, width, height);
         if (this.y >= 95 && up) {
@@ -226,7 +231,10 @@ class Walker {
           this.walk(ctx);
           clearInterval(jumping);
         }
-      }, 6);
+        if (count % 5 === 1) {
+          this.time -= 0.002;
+        }
+      }, this.time);
     }
   }
 
@@ -240,7 +248,7 @@ class Walker {
   }
 
   die(ctx, img, width, height) {
-    this.jump(ctx, img, 40, 40);
+    this.jump(ctx, img, width, height);
     this.dead = true;
   }
 
