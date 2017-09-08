@@ -68,7 +68,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 const Tree = __webpack_require__(1);
-const Walker = __webpack_require__(3);
+const Walker = __webpack_require__(2);
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById('canvas');
@@ -107,7 +107,6 @@ class Game {
         this.ctx.clearRect(0, 0, 800, 320);
       }
       if (e.keyCode === 32) {
-        // clearInterval(this.walk);
         this.walker.jump(this.ctx, this.walker.man[3], 30, 60);
       }
     });
@@ -129,11 +128,20 @@ class Game {
     this.interval = setInterval( () => {
       this.ctx.clearRect(x, 220, 70, 100);
       this.ctx.drawImage(t.trees[i], x--, 220, 60, 100);
+
+      // collision
+      if ((x === this.walker.x && this.walker.y + 60 > 220) ||
+          (x + 55 === this.walker.x && this.walker.y + 60 > 220)) {
+         clearInterval(this.interval);
+         this.ctx.clearRect(x, 220, 70, 100);
+         this.walker.die(this.ctx, this.walker.man[3], 30, 60);
+       }
+
+       // start new tree if current tree is off the canvas
       if (x === -70) {
         clearInterval(this.interval);
         this.xCord = 695;
         i = parseInt(Math.random() * 6);
-        console.log(i);
         this.start(i, this.xCord, timer, t);
       }
     }, timer);
@@ -171,8 +179,7 @@ module.exports = Tree;
 
 
 /***/ }),
-/* 2 */,
-/* 3 */
+/* 2 */
 /***/ (function(module, exports) {
 
 class Walker {
@@ -186,11 +193,13 @@ class Walker {
     this.walker3.src = './images/man3.png';
     this.walker4 = new Image();
     this.walker4.src = './images/man4.png';
+    this.skull = new Image();
+    this.skull.src = './images/skull.png';
     this.jumped = false;
     this.stroll = null;
+    this.dead = false;
     this.x = 100;
     this.y = 260;
-
 
     this.man = [this.walker1, this.walker2, this.walker3, this.walker4];
   }
@@ -200,30 +209,39 @@ class Walker {
     clearInterval(this.stroll);
     if (this.y === 260) {
       const jumping = setInterval( () => {
-        // ctx.clearRect(100, 260, 30, 60);
+        if (this.dead) {
+          ctx.rect(0, 320, 800, 3);
+          ctx.fill();
+          // ctx.rotate(20 * Math.PI/180);
+          // img.style.transform = "rotate(10deg)";
+        }
         ctx.clearRect(this.x, this.y, width, height);
-        if (this.y >= 110 && up) {
-          if (this.y === 110) {up = false;}
+        if (this.y >= 95 && up) {
+          if (this.y === 95) {up = false;}
           this.y--;
         }
         else this.y++;
         ctx.drawImage(img, this.x, this.y, width, height);
-        if (this.y === 260) {
+        if (this.y === 260 && !this.dead) {
           this.walk(ctx);
           clearInterval(jumping);
         }
-      }, 5.5);
+      }, 6);
     }
   }
 
   walk (ctx) {
     let i = 0;
     this.stroll = setInterval( () => {
-
       i = (i + 1) % 4;
       ctx.clearRect(50, 260, 30, 60);
       ctx.drawImage(this.man[i], 100, 260, 30, 60);
     }, 100);
+  }
+
+  die(ctx, img, width, height) {
+    this.jump(ctx, img, 40, 40);
+    this.dead = true;
   }
 
 

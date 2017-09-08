@@ -38,7 +38,6 @@ class Game {
         this.ctx.clearRect(0, 0, 800, 320);
       }
       if (e.keyCode === 32) {
-        // clearInterval(this.walk);
         this.walker.jump(this.ctx, this.walker.man[3], 30, 60);
       }
     });
@@ -60,11 +59,20 @@ class Game {
     this.interval = setInterval( () => {
       this.ctx.clearRect(x, 220, 70, 100);
       this.ctx.drawImage(t.trees[i], x--, 220, 60, 100);
+
+      // collision
+      if ((x === this.walker.x && this.walker.y + 60 > 220) ||
+          (x + 55 === this.walker.x && this.walker.y + 60 > 220)) {
+         clearInterval(this.interval);
+         this.ctx.clearRect(x, 220, 70, 100);
+         this.walker.die(this.ctx, this.walker.man[3], 30, 60);
+       }
+
+       // start new tree if current tree is off the canvas
       if (x === -70) {
         clearInterval(this.interval);
         this.xCord = 695;
         i = parseInt(Math.random() * 6);
-        console.log(i);
         this.start(i, this.xCord, timer, t);
       }
     }, timer);
