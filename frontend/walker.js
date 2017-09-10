@@ -34,8 +34,8 @@ class Walker {
           // ctx.rotate(20 * Math.PI/180);
         }
         ctx.clearRect(this.x, this.y, width, height);
-        if (this.y >= 100 && up) {
-          if (this.y === 100) {up = false;}
+        if (this.y >= 90 && up) {
+          if (this.y === 90) {up = false;}
           this.y -= 5;
         }
         else this.y += 5;
