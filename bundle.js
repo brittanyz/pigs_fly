@@ -191,6 +191,7 @@ class Game {
          this.walker.die(this.ctx, this.walker.man[3], 30, 60);
          // clear bird space??
          clearInterval(this.birdInterval);
+         this.promptToPlayAgain(this.document);
        }
        // start new tree if current tree is off the canvas
       if (x < -70) {
@@ -257,6 +258,14 @@ class Game {
           ctx.clearRect(70, 90, 80, 80);
         }
     }, 3);
+  }
+
+  promptToPlayAgain(document) {
+    document.addEventListener('keypress', (e) => {
+      if (e.keyCode === 121) {
+        return new Game(this.document, this.ctx, true);
+      }
+    });
   }
 }
 
@@ -363,6 +372,8 @@ class Walker {
    ctx.font = '75px Inconsolata';
    ctx.clearRect(215, 75, 75, 150);
    ctx.fillText('Game Over', 215, 150);
+   ctx.font = '18px Inconsolata';
+   ctx.fillText('Would you like to play again? (press "y")',190 ,200);
   }
 }
 
