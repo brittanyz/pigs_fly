@@ -4,10 +4,11 @@ const Bird = require('./bird');
 
 class Game {
 
-  constructor(document, ctx) {
+  constructor(document, ctx, playing) {
     this.walker = new Walker();
     this.tree = new Tree();
     this.bird = new Bird();
+    this.playing = playing;
     this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
     this.secondxCord = 400;
     this.birdY = 100;
@@ -55,7 +56,7 @@ class Game {
 
       // collision
       if ((x === 90 && this.walker.y + 55 > 220) ||
-          ((x + 55 > 100 && x < 130) && this.walker.y + 55 > 220)) {
+          ((x + 50 > 100 && x < 130) && this.walker.y + 55 > 220)) {
          clearInterval(this.treeInterval);
          this.ctx.clearRect(x, 220, 70, 100);
          this.walker.die(this.ctx, this.walker.man[3], 30, 60);
@@ -120,21 +121,17 @@ class Game {
   displayBirdPoints() {
     let ctx = this.ctx;
     let count = 0;
-        let interval = setInterval(function () {
-          count++;
-          console.log(count);
-          ctx.fillStyle = "black";
-          ctx.font = '50px Inconsolata';
-          ctx.fillText("20", 100, 125);
-            if (count === 100) {
-              clearInterval(interval);
-              ctx.clearRect(70, 90, 80, 80);
-            }
-        }, 3);
-
-    // this.ctx.fillStyle = "black";
-    // this.ctx.font = '50px Inconsolata';
-    // this.ctx.fillText("20", 380, 100);
+    let interval = setInterval(function () {
+      count++;
+      console.log(count);
+      ctx.fillStyle = "black";
+      ctx.font = '50px Inconsolata';
+      ctx.fillText("20", 100, 125);
+        if (count === 100) {
+          clearInterval(interval);
+          ctx.clearRect(70, 90, 80, 80);
+        }
+    }, 3);
   }
 }
 

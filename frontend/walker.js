@@ -44,9 +44,6 @@ class Walker {
           this.walk(ctx);
           clearInterval(jumping);
         }
-        // if (count % 5 === 1) {
-        //   this.time -= 0.002;
-        // }
       }, this.time);
     }
   }
@@ -69,10 +66,9 @@ class Walker {
   gameOver(ctx) {
    ctx.fillStyle = "gray";
    ctx.font = '75px Inconsolata';
+   ctx.clearRect(215, 75, 75, 150)
    ctx.fillText('Game Over', 215, 150);
   }
-
-
 }
 
 module.exports = Walker;
