@@ -96,16 +96,16 @@ class Welcome  {
     this.ctx.fillRect(0, 0, 800, 400);
     this.ctx.fillStyle = '#cce6ff';
     this.ctx.font = '50px Inconsolata';
-    this.ctx.fillText('Welcome to Tree Jumper!', 110, 80);
+    this.ctx.fillText('Welcome to Tree Jumper!', 130, 80);
     this.ctx.font = '25px Inconsolata';
     this.ctx.fillStyle = '#cce6ff';
-    this.ctx.fillText('Jump over the trees', 250, 170);
-    this.ctx.fillText('and catch the birds for extra points!', 150, 210);
+    this.ctx.fillText('Jump over the trees', 270, 170);
+    this.ctx.fillText('and catch the birds for extra points!', 170, 210);
     this.ctx.font = '18px Inconsolata';
     this.ctx.fillStyle = '#cce6ff';
-    this.ctx.fillText('Press the space bar to jump', 255, 325);
+    this.ctx.fillText('Press the space bar to jump', 275, 325);
     this.ctx.font = '18px Inconsolata';
-    this.ctx.fillText('Press Enter to begin...', 280, 350);
+    this.ctx.fillText('Press Enter to begin...', 300, 350);
   }
 
   play(playing) {
@@ -209,16 +209,14 @@ class Game {
     let i = 0;
     let counter = 0;
     this.birdInterval = setInterval( () => {
-      this.ctx.clearRect(x, this.birdY, 55, 100);
+      this.ctx.clearRect(x, this.birdY, 55, 55);
       x--;
       if (counter % 10 === 0) i++;
       this.ctx.drawImage(this.bird.birds[i % 8], x, this.birdY, 55, 55);
       counter++;
 
       // caught bird
-      if ((x === 90 && this.walker.y + 55 > 100) ||
-          ((x + 55 > 100 && x < 130) && this.walker.y + 55 > 100)) {
-            console.log('collision');
+      if (((x >= 100 && x <= 160) && this.walker.y < 155)) {
             this.ctx.clearRect(x, this.birdY, 55, 100);
             this.points += 20;
             this.displayBirdPoints();
@@ -230,7 +228,6 @@ class Game {
 
       if (x < -70) {
         counter++;
-        console.log(i);
         clearInterval(this.birdInterval);
         this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
         this.birdY = 100;
@@ -250,7 +247,6 @@ class Game {
     let count = 0;
     let interval = setInterval(function () {
       count++;
-      console.log(count);
       ctx.fillStyle = "black";
       ctx.font = '50px Inconsolata';
       ctx.fillText("20", 100, 125);
@@ -321,7 +317,6 @@ class Walker {
   }
 
   jump (ctx, img, width, height, count) {
-    // console.log(count);
     let up = true;
     clearInterval(this.stroll);
     if (this.y === 260) {
@@ -350,7 +345,7 @@ class Walker {
     let i = 0;
     this.stroll = setInterval( () => {
       i = (i + 1) % 4;
-      ctx.clearRect(50, 260, 30, 60);
+      ctx.clearRect(100, 260, 30, 60);
       ctx.drawImage(this.man[i], 100, 260, 30, 60);
     }, 100);
   }
@@ -364,7 +359,7 @@ class Walker {
   gameOver(ctx) {
    ctx.fillStyle = "gray";
    ctx.font = '75px Inconsolata';
-   ctx.clearRect(215, 75, 75, 150)
+   ctx.clearRect(215, 75, 75, 150);
    ctx.fillText('Game Over', 215, 150);
   }
 }

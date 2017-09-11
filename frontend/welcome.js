@@ -27,16 +27,16 @@ class Welcome  {
     this.ctx.fillRect(0, 0, 800, 400);
     this.ctx.fillStyle = '#cce6ff';
     this.ctx.font = '50px Inconsolata';
-    this.ctx.fillText('Welcome to Tree Jumper!', 110, 80);
+    this.ctx.fillText('Welcome to Tree Jumper!', 130, 80);
     this.ctx.font = '25px Inconsolata';
     this.ctx.fillStyle = '#cce6ff';
-    this.ctx.fillText('Jump over the trees', 250, 170);
-    this.ctx.fillText('and catch the birds for extra points!', 150, 210);
+    this.ctx.fillText('Jump over the trees', 270, 170);
+    this.ctx.fillText('and catch the birds for extra points!', 170, 210);
     this.ctx.font = '18px Inconsolata';
     this.ctx.fillStyle = '#cce6ff';
-    this.ctx.fillText('Press the space bar to jump', 255, 325);
+    this.ctx.fillText('Press the space bar to jump', 275, 325);
     this.ctx.font = '18px Inconsolata';
-    this.ctx.fillText('Press Enter to begin...', 280, 350);
+    this.ctx.fillText('Press Enter to begin...', 300, 350);
   }
 
   play(playing) {

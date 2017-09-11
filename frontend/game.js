@@ -82,16 +82,14 @@ class Game {
     let i = 0;
     let counter = 0;
     this.birdInterval = setInterval( () => {
-      this.ctx.clearRect(x, this.birdY, 55, 100);
+      this.ctx.clearRect(x, this.birdY, 55, 55);
       x--;
       if (counter % 10 === 0) i++;
       this.ctx.drawImage(this.bird.birds[i % 8], x, this.birdY, 55, 55);
       counter++;
 
       // caught bird
-      if ((x === 90 && this.walker.y + 55 > 100) ||
-          ((x + 55 > 100 && x < 130) && this.walker.y + 55 > 100)) {
-            console.log('collision');
+      if (((x >= 100 && x <= 160) && this.walker.y < 155)) {
             this.ctx.clearRect(x, this.birdY, 55, 100);
             this.points += 20;
             this.displayBirdPoints();
@@ -103,7 +101,6 @@ class Game {
 
       if (x < -70) {
         counter++;
-        console.log(i);
         clearInterval(this.birdInterval);
         this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
         this.birdY = 100;
@@ -123,7 +120,6 @@ class Game {
     let count = 0;
     let interval = setInterval(function () {
       count++;
-      console.log(count);
       ctx.fillStyle = "black";
       ctx.font = '50px Inconsolata';
       ctx.fillText("20", 100, 125);

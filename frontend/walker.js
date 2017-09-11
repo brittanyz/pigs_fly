@@ -23,7 +23,6 @@ class Walker {
   }
 
   jump (ctx, img, width, height, count) {
-    // console.log(count);
     let up = true;
     clearInterval(this.stroll);
     if (this.y === 260) {
@@ -52,7 +51,7 @@ class Walker {
     let i = 0;
     this.stroll = setInterval( () => {
       i = (i + 1) % 4;
-      ctx.clearRect(50, 260, 30, 60);
+      ctx.clearRect(100, 260, 30, 60);
       ctx.drawImage(this.man[i], 100, 260, 30, 60);
     }, 100);
   }
@@ -66,7 +65,7 @@ class Walker {
   gameOver(ctx) {
    ctx.fillStyle = "gray";
    ctx.font = '75px Inconsolata';
-   ctx.clearRect(215, 75, 75, 150)
+   ctx.clearRect(215, 75, 75, 150);
    ctx.fillText('Game Over', 215, 150);
   }
 }
