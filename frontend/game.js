@@ -58,6 +58,7 @@ class Game {
       if ((x === 90 && this.walker.y + 55 > 220) ||
           ((x + 50 > 100 && x < 130) && this.walker.y + 55 > 220)) {
          clearInterval(this.treeInterval);
+         this.playing = false;
          this.ctx.clearRect(x, 220, 70, 100);
          this.walker.die(this.ctx, this.walker.man[3], 30, 60);
          // clear bird space??

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   const welcome = new Welcome(document, ctx);
-  // const playing = false;
+  const playing = false;
   welcome.welcome();
   welcome.play();
 
@@ -42,8 +42,9 @@ class Welcome  {
   play(playing) {
     this.document.addEventListener('keypress', (e) => {
       // enter to play again, but disable once a round starts
-      if (e.keyCode === 13) {
-        return new Game(this.document, this.ctx);
+      if (e.keyCode === 13 && !this.playing) {
+        this.playing = true;
+        return new Game(this.document, this.ctx, this.playing);
       }
     });
   }
