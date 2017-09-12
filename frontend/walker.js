@@ -9,10 +9,9 @@ class Walker {
     this.walker3.src = './images/man3.png';
     this.walker4 = new Image();
     this.walker4.src = './images/man4.png';
-    this.skull = new Image();
-    this.skull.src = './images/skull.png';
 
     // this.jumped = false;
+    this.jumping = null;
     this.stroll = null;
     this.dead = false;
     this.x = 100;
@@ -22,7 +21,8 @@ class Walker {
     this.man = [this.walker1, this.walker2, this.walker3, this.walker4];
   }
 
-  jump (ctx, img, width, height, count) {
+  jump (ctx, img, width, height) {
+    // debugger
     let up = true;
     clearInterval(this.stroll);
     if (this.y === 260) {
@@ -57,8 +57,10 @@ class Walker {
   }
 
   die(ctx, img, width, height) {
-    this.jump(ctx, img, width, height);
+    // debugger
     this.dead = true;
+    this.jump(ctx, img, width, height);
+    // clearInterval(this.jumping);
     this.gameOver(ctx);
   }
 
@@ -68,7 +70,7 @@ class Walker {
    ctx.clearRect(215, 75, 75, 150);
    ctx.fillText('Game Over', 215, 150);
    ctx.font = '18px Inconsolata';
-   ctx.fillText('Would you like to play again? (press "y")',190 ,200);
+   ctx.fillText('Would you like to play again? (press "y")', 190 ,200);
   }
 }
 

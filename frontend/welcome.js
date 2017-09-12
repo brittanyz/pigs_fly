@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const playing = false;
   welcome.welcome();
   welcome.play();
-
 });
 
 
@@ -44,7 +43,10 @@ class Welcome  {
       // enter to play again, but disable once a round starts
       if (e.keyCode === 13 && !this.playing) {
         this.playing = true;
-        return new Game(this.document, this.ctx, this.playing);
+        return new Game(this.document, this.ctx, this.playing, this.initialized);
+      }
+      if (e.keyCode === 121 && !this.playing) {
+        const welcome = new Welcome();
       }
     });
   }

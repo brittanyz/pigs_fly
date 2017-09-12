@@ -30,15 +30,27 @@ class Game {
     this.startTrees(this.i, this.xCord, this.timer, this.tree);
     this.startBird(this.xCord);
     this.document.addEventListener('keypress', (e) => {
-      if (e.keyCode === 113) {
-        // q to quit??
-        clearInterval(this.interval);
-        this.ctx.clearRect(0, 0, 800, 320);
-      }
+      // if (e.keyCode === 113) {
+      //   // q to quit??
+      //   clearInterval(this.interval);
+      //   this.ctx.clearRect(0, 0, 800, 320);
+      // }
       if (e.keyCode === 32) {
         this.walker.jump(this.ctx, this.walker.man[3], 30, 60, this.count);
       }
     });
+  }
+
+  resetGame(){
+    this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
+    this.timer = 7;
+    this.pixel = 3;
+    this.points = 0;
+    this.walker.y = 260;
+    this.walker.walk(this.ctx);
+    this.displayRoad();
+    this.startBird(this.xCord);
+    this.startTrees(this.i, this.xCord, this.timer, this.tree);
   }
 
   displayRoad() {
@@ -58,11 +70,9 @@ class Game {
       if ((x === 90 && this.walker.y + 55 > 220) ||
           ((x + 50 > 100 && x < 130) && this.walker.y + 55 > 220)) {
          clearInterval(this.treeInterval);
-         this.playing = false;
-         this.ctx.clearRect(x, 220, 70, 100);
-         this.walker.die(this.ctx, this.walker.man[3], 30, 60);
-         // clear bird space??
          clearInterval(this.birdInterval);
+         this.playing = false;
+         this.walker.die(this.ctx, this.walker.man[3], 30, 60);
          this.promptToPlayAgain(this.document);
        }
        // start new tree if current tree is off the canvas
@@ -133,9 +143,14 @@ class Game {
   }
 
   promptToPlayAgain(document) {
+
     document.addEventListener('keypress', (e) => {
+      clearInterval(this.birdInterval);
+      clearInterval(this.treeInterval);
       if (e.keyCode === 121) {
-        return new Game(this.document, this.ctx, true);
+        this.ctx.clearRect(0, 0, 1500, 400);
+        this.resetGame();
+        // return new Game(this.document, this.ctx, true);
       }
     });
   }
