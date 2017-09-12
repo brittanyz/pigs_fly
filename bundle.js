@@ -160,11 +160,6 @@ class Game {
     this.startTrees(this.i, this.xCord, this.timer, this.tree);
     this.startBird(this.xCord);
     this.document.addEventListener('keypress', (e) => {
-      // if (e.keyCode === 113) {
-      //   // q to quit??
-      //   clearInterval(this.interval);
-      //   this.ctx.clearRect(0, 0, 800, 320);
-      // }
       if (e.keyCode === 32) {
         this.walker.jump(this.ctx, this.walker.man[3], 30, 60, this.count);
       }
@@ -177,6 +172,10 @@ class Game {
     this.pixel = 3;
     this.points = 0;
     this.walker.y = 260;
+    this.walker.dead = false;
+    clearInterval(this.walker.jumping);
+    clearInterval(this.walker.stroll);
+    // this.walker = new Walker();
     this.walker.walk(this.ctx);
     this.displayRoad();
     this.startBird(this.xCord);
@@ -201,6 +200,7 @@ class Game {
           ((x + 50 > 100 && x < 130) && this.walker.y + 55 > 220)) {
          clearInterval(this.treeInterval);
          clearInterval(this.birdInterval);
+         this.ctx.clearRect(80, 220, 150, 100);
          this.playing = false;
          this.walker.die(this.ctx, this.walker.man[3], 30, 60);
          this.promptToPlayAgain(this.document);
@@ -275,12 +275,11 @@ class Game {
   promptToPlayAgain(document) {
 
     document.addEventListener('keypress', (e) => {
-      clearInterval(this.birdInterval);
-      clearInterval(this.treeInterval);
       if (e.keyCode === 121) {
+        clearInterval(this.birdInterval);
+        clearInterval(this.treeInterval);
         this.ctx.clearRect(0, 0, 1500, 400);
         this.resetGame();
-        // return new Game(this.document, this.ctx, true);
       }
     });
   }
@@ -344,12 +343,12 @@ class Walker {
   }
 
   jump (ctx, img, width, height) {
-    // debugger
     let up = true;
     clearInterval(this.stroll);
     if (this.y === 260) {
-      const jumping = setInterval( () => {
-        if (this.dead) {
+      this.jumping = setInterval( () => {
+        if (this.dead && this.y >= 400) {
+          clearInterval(this.jumping);
           ctx.rect(0, 320, 800, 3);
           ctx.fill();
           // ctx.rotate(20 * Math.PI/180);
@@ -363,7 +362,7 @@ class Walker {
         ctx.drawImage(img, this.x, this.y, width, height);
         if (this.y === 260 && !this.dead) {
           this.walk(ctx);
-          clearInterval(jumping);
+          clearInterval(this.jumping);
         }
       }, this.time);
     }
@@ -379,17 +378,16 @@ class Walker {
   }
 
   die(ctx, img, width, height) {
-    // debugger
+
     this.dead = true;
     this.jump(ctx, img, width, height);
-    // clearInterval(this.jumping);
     this.gameOver(ctx);
   }
 
   gameOver(ctx) {
    ctx.fillStyle = "gray";
    ctx.font = '75px Inconsolata';
-   ctx.clearRect(215, 75, 75, 150);
+   ctx.clearRect(215, 75, 75, 200);
    ctx.fillText('Game Over', 215, 150);
    ctx.font = '18px Inconsolata';
    ctx.fillText('Would you like to play again? (press "y")', 190 ,200);

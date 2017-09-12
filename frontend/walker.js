@@ -22,12 +22,12 @@ class Walker {
   }
 
   jump (ctx, img, width, height) {
-    // debugger
     let up = true;
     clearInterval(this.stroll);
     if (this.y === 260) {
-      const jumping = setInterval( () => {
-        if (this.dead) {
+      this.jumping = setInterval( () => {
+        if (this.dead && this.y >= 400) {
+          clearInterval(this.jumping);
           ctx.rect(0, 320, 800, 3);
           ctx.fill();
           // ctx.rotate(20 * Math.PI/180);
@@ -41,7 +41,7 @@ class Walker {
         ctx.drawImage(img, this.x, this.y, width, height);
         if (this.y === 260 && !this.dead) {
           this.walk(ctx);
-          clearInterval(jumping);
+          clearInterval(this.jumping);
         }
       }, this.time);
     }
@@ -57,17 +57,16 @@ class Walker {
   }
 
   die(ctx, img, width, height) {
-    // debugger
+
     this.dead = true;
     this.jump(ctx, img, width, height);
-    // clearInterval(this.jumping);
     this.gameOver(ctx);
   }
 
   gameOver(ctx) {
    ctx.fillStyle = "gray";
    ctx.font = '75px Inconsolata';
-   ctx.clearRect(215, 75, 75, 150);
+   ctx.clearRect(215, 75, 75, 200);
    ctx.fillText('Game Over', 215, 150);
    ctx.font = '18px Inconsolata';
    ctx.fillText('Would you like to play again? (press "y")', 190 ,200);
