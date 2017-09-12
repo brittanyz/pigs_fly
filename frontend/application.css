@@ -38,3 +38,9 @@ p  {
   font-family: 'Inconsolata';
   font-weight: bold;
 }
+
+#music {
+  background-color: #cce6ff;
+  height: 40px;
+  border-radius: 25px;
+}

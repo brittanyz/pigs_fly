@@ -69,7 +69,7 @@ class Walker {
    ctx.clearRect(215, 75, 75, 200);
    ctx.fillText('Game Over', 215, 150);
    ctx.font = '18px Inconsolata';
-   ctx.fillText('Would you like to play again? (press "y")', 190 ,200);
+   ctx.fillText('Would you like to play again? (press "y")', 200 ,200);
   }
 }
 

@@ -41,6 +41,7 @@ class Welcome  {
   play(playing) {
     this.document.addEventListener('keypress', (e) => {
       // enter to play again, but disable once a round starts
+      e.preventDefault();
       if (e.keyCode === 13 && !this.playing) {
         this.playing = true;
         return new Game(this.document, this.ctx, this.playing, this.initialized);

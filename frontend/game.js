@@ -8,6 +8,10 @@ class Game {
     this.walker = new Walker();
     this.tree = new Tree();
     this.bird = new Bird();
+    this.musicPlaying = false;
+    this.audio = document.getElementById('playback');
+    this.button = document.getElementById('music');
+    this.button.addEventListener('click', (e) => this.handleClick(e).focus());
     this.playing = playing;
     this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
     this.secondxCord = 400;
@@ -27,16 +31,33 @@ class Game {
   }
 
   run(){
+    this.audio.play();
+    this.musicPlaying = true;
     this.startTrees(this.i, this.xCord, this.timer, this.tree);
     this.startBird(this.xCord);
     this.document.addEventListener('keypress', (e) => {
+      e.preventDefault();
       if (e.keyCode === 32) {
         this.walker.jump(this.ctx, this.walker.man[3], 30, 60, this.count);
       }
     });
   }
 
+  handleClick(e) {
+    if (this.musicPlaying) {
+      this.musicPlaying = false;
+      this.audio.pause();
+      e.currentTarget.blur();
+    } else {
+      this.musicPlaying = true;
+      this.audio.play();
+      e.currentTarget.blur();
+    }
+  }
+
   resetGame(){
+    this.audio = document.getElementById('playback');
+    this.button = document.getElementById('music');
     this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
     this.timer = 7;
     this.pixel = 3;
@@ -45,7 +66,6 @@ class Game {
     this.walker.dead = false;
     clearInterval(this.walker.jumping);
     clearInterval(this.walker.stroll);
-    // this.walker = new Walker();
     this.walker.walk(this.ctx);
     this.displayRoad();
     this.startBird(this.xCord);
@@ -73,6 +93,7 @@ class Game {
          this.ctx.clearRect(80, 220, 150, 100);
          this.playing = false;
          this.walker.die(this.ctx, this.walker.man[3], 30, 60);
+         this.audio.pause();
          this.promptToPlayAgain(this.document);
        }
        // start new tree if current tree is off the canvas
@@ -145,6 +166,7 @@ class Game {
   promptToPlayAgain(document) {
 
     document.addEventListener('keypress', (e) => {
+      e.preventDefault();
       if (e.keyCode === 121) {
         clearInterval(this.birdInterval);
         clearInterval(this.treeInterval);
