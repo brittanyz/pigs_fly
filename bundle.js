@@ -221,7 +221,7 @@ class Game {
           ((x + 50 > 100 && x < 130) && this.walker.y + 55 > 220)) {
          clearInterval(this.treeInterval);
          clearInterval(this.birdInterval);
-         this.ctx.clearRect(80, 220, 150, 100);
+         this.ctx.clearRect(0, 220, 400, 100);
          this.playing = false;
          this.walker.die(this.ctx, this.walker.man[3], 30, 60);
          this.audio.pause();
