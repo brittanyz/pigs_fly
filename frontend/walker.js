@@ -72,7 +72,7 @@ class Walker {
     ctx.font = '18px Inconsolata';
     setTimeout( () => {
       location.reload();
-    }, 3000);
+    }, 2500);
   //  ctx.fillText('Would you like to play again? (press "y")', 200 ,200);
   }
 }

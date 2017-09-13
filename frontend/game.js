@@ -166,7 +166,7 @@ class Game {
     }, 3);
   }
 
-  promptToPlayAgain(document) {
+  // promptToPlayAgain(document) {
     // location.reload();
     // document.addEventListener('keypress', (e) => {
     //   e.preventDefault();
@@ -177,7 +177,7 @@ class Game {
     //     this.resetGame();
     //   }
     // });
-  }
+  // }
 }
 
 module.exports = Game;

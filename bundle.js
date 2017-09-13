@@ -297,7 +297,7 @@ class Game {
     }, 3);
   }
 
-  promptToPlayAgain(document) {
+  // promptToPlayAgain(document) {
     // location.reload();
     // document.addEventListener('keypress', (e) => {
     //   e.preventDefault();
@@ -308,7 +308,7 @@ class Game {
     //     this.resetGame();
     //   }
     // });
-  }
+  // }
 }
 
 module.exports = Game;
@@ -419,7 +419,7 @@ class Walker {
     ctx.font = '18px Inconsolata';
     setTimeout( () => {
       location.reload();
-    }, 3000);
+    }, 2500);
   //  ctx.fillText('Would you like to play again? (press "y")', 200 ,200);
   }
 }
