@@ -11,7 +11,7 @@ class Game {
     this.musicPlaying = false;
     this.audio = document.getElementById('playback');
     this.button = document.getElementById('music');
-    this.button.addEventListener('click', (e) => this.handleClick(e).focus());
+    this.button.addEventListener('click', (e) => this.handleClick(e));
     this.playing = playing;
     this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
     this.secondxCord = 400;
@@ -55,22 +55,25 @@ class Game {
     }
   }
 
-  resetGame(){
-    this.audio = document.getElementById('playback');
-    this.button = document.getElementById('music');
-    this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
-    this.timer = 7;
-    this.pixel = 3;
-    this.points = 0;
-    this.walker.y = 260;
-    this.walker.dead = false;
-    clearInterval(this.walker.jumping);
-    clearInterval(this.walker.stroll);
-    this.walker.walk(this.ctx);
-    this.displayRoad();
-    this.startBird(this.xCord);
-    this.startTrees(this.i, this.xCord, this.timer, this.tree);
-  }
+  // resetGame(){
+  //   clearInterval(this.walker.jumping);
+  //   clearInterval(this.walker.stroll);
+  //   clearInterval(this.treeInterval);
+  //   clearInterval(this.birdInterval);
+  //   this.audio = document.getElementById('playback');
+  //   this.button = document.getElementById('music');
+  //   this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
+  //   this.timer = 7;
+  //   this.pixel = 3;
+  //   this.points = 0;
+  //   this.walker.y = 260;
+  //   this.walker.dead = false;
+  //   this.walker.walk(this.ctx);
+  //   this.displayRoad();
+  //   this.startBird(this.xCord);
+  //   this.startTrees(this.i, this.xCord, this.timer, this.tree);
+  //   if (this.musicPlaying) this.audio.play();
+  // }
 
   displayRoad() {
     this.ctx.fillStyle = "black";
@@ -164,16 +167,16 @@ class Game {
   }
 
   promptToPlayAgain(document) {
-
-    document.addEventListener('keypress', (e) => {
-      e.preventDefault();
-      if (e.keyCode === 121) {
-        clearInterval(this.birdInterval);
-        clearInterval(this.treeInterval);
-        this.ctx.clearRect(0, 0, 1500, 400);
-        this.resetGame();
-      }
-    });
+    // location.reload();
+    // document.addEventListener('keypress', (e) => {
+    //   e.preventDefault();
+    //   if (e.keyCode === 121) {
+    //     clearInterval(this.birdInterval);
+    //     clearInterval(this.treeInterval);
+    //     this.ctx.clearRect(0, 0, 1500, 400);
+    //     this.resetGame();
+    //   }
+    // });
   }
 }
 

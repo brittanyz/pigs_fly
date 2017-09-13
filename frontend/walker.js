@@ -57,19 +57,21 @@ class Walker {
   }
 
   die(ctx, img, width, height) {
-
     this.dead = true;
     this.jump(ctx, img, width, height);
     this.gameOver(ctx);
   }
 
   gameOver(ctx) {
-   ctx.fillStyle = "gray";
-   ctx.font = '75px Inconsolata';
-   ctx.clearRect(215, 75, 75, 200);
-   ctx.fillText('Game Over', 215, 150);
-   ctx.font = '18px Inconsolata';
-   ctx.fillText('Would you like to play again? (press "y")', 200 ,200);
+    ctx.fillStyle = "gray";
+    ctx.font = '75px Inconsolata';
+    ctx.clearRect(215, 75, 75, 200);
+    ctx.fillText('Game Over', 215, 150);
+    ctx.font = '18px Inconsolata';
+    setTimeout( () => {
+      location.reload();
+    }, 3000);
+  //  ctx.fillText('Would you like to play again? (press "y")', 200 ,200);
   }
 }
 
