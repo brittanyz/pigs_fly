@@ -9,6 +9,8 @@ class Walker {
     this.walker3.src = './images/man3.png';
     this.walker4 = new Image();
     this.walker4.src = './images/man4.png';
+    this.deadman = new Image();
+    this.deadman.src = './images/deadman.png';
 
     // this.jumped = false;
     this.jumping = null;

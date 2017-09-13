@@ -226,7 +226,7 @@ class Game {
          clearInterval(this.birdInterval);
          this.ctx.clearRect(0, 220, 400, 100);
          this.playing = false;
-         this.walker.die(this.ctx, this.walker.man[3], 30, 60);
+         this.walker.die(this.ctx, this.walker.deadman, 60, 30);
          this.audio.pause();
          this.promptToPlayAgain(this.document);
        }
@@ -356,6 +356,8 @@ class Walker {
     this.walker3.src = './images/man3.png';
     this.walker4 = new Image();
     this.walker4.src = './images/man4.png';
+    this.deadman = new Image();
+    this.deadman.src = './images/deadman.png';
 
     // this.jumped = false;
     this.jumping = null;
