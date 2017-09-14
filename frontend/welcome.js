@@ -2,7 +2,7 @@ const Game = require("./game");
 // const Tree = require("./trees");
 // const Walker = require('./walker');
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   const welcome = new Welcome(document, ctx);

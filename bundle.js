@@ -71,7 +71,7 @@ const Game = __webpack_require__(1);
 // const Tree = require("./trees");
 // const Walker = require('./walker');
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   const welcome = new Welcome(document, ctx);
@@ -391,6 +391,10 @@ class Walker {
         if (this.y === 260 && !this.dead) {
           this.walk(ctx);
           clearInterval(this.jumping);
+        } else if (this.y === 260 && this.dead) {
+          ctx.clearRect(100, 260, 30, 60);
+          ctx.drawImage(this.deadman, 100, 295, 60, 30);
+          clearInterval(this.jumping);
         }
       }, this.time);
     }
@@ -417,7 +421,7 @@ class Walker {
     ctx.clearRect(0, 75, 800, 200);
     ctx.fillText('Game Over', 215, 150);
     ctx.font = '24px Inconsolata';
-    ctx.fillText(`your points: ${points}`, 280, 200);
+    ctx.fillText(`your points: ${points}`, 290, 200);
     setTimeout( () => {
       location.reload();
     }, 2500);
