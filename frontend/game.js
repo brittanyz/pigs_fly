@@ -97,7 +97,7 @@ class Game {
          this.playing = false;
          this.walker.die(this.ctx, this.walker.deadman, 60, 30);
          this.audio.pause();
-         this.promptToPlayAgain(this.document);
+        //  this.promptToPlayAgain(this.document);
        }
        // start new tree if current tree is off the canvas
       if (x < -70) {
