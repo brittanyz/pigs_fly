@@ -58,18 +58,19 @@ class Walker {
     }, 100);
   }
 
-  die(ctx, img, width, height) {
+  die(points, ctx, img, width, height) {
     this.dead = true;
     this.jump(ctx, img, width, height);
-    this.gameOver(ctx);
+    this.gameOver(ctx, points);
   }
 
-  gameOver(ctx) {
+  gameOver(ctx, points) {
     ctx.fillStyle = "gray";
     ctx.font = '75px Inconsolata';
-    ctx.clearRect(215, 75, 75, 200);
+    ctx.clearRect(0, 75, 800, 200);
     ctx.fillText('Game Over', 215, 150);
-    ctx.font = '18px Inconsolata';
+    ctx.font = '24px Inconsolata';
+    ctx.fillText(`your points: ${points}`, 280, 200);
     setTimeout( () => {
       location.reload();
     }, 2500);

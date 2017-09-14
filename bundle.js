@@ -226,7 +226,7 @@ class Game {
          clearInterval(this.birdInterval);
          this.ctx.clearRect(0, 220, 400, 100);
          this.playing = false;
-         this.walker.die(this.ctx, this.walker.deadman, 60, 30);
+         this.walker.die(this.points, this.ctx, this.walker.man[3], 30, 60);
          this.audio.pause();
         //  this.promptToPlayAgain(this.document);
        }
@@ -405,18 +405,19 @@ class Walker {
     }, 100);
   }
 
-  die(ctx, img, width, height) {
+  die(points, ctx, img, width, height) {
     this.dead = true;
     this.jump(ctx, img, width, height);
-    this.gameOver(ctx);
+    this.gameOver(ctx, points);
   }
 
-  gameOver(ctx) {
+  gameOver(ctx, points) {
     ctx.fillStyle = "gray";
     ctx.font = '75px Inconsolata';
-    ctx.clearRect(215, 75, 75, 200);
+    ctx.clearRect(0, 75, 800, 200);
     ctx.fillText('Game Over', 215, 150);
-    ctx.font = '18px Inconsolata';
+    ctx.font = '24px Inconsolata';
+    ctx.fillText(`your points: ${points}`, 280, 200);
     setTimeout( () => {
       location.reload();
     }, 2500);

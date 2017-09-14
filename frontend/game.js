@@ -95,7 +95,7 @@ class Game {
          clearInterval(this.birdInterval);
          this.ctx.clearRect(0, 220, 400, 100);
          this.playing = false;
-         this.walker.die(this.ctx, this.walker.deadman, 60, 30);
+         this.walker.die(this.points, this.ctx, this.walker.man[3], 30, 60);
          this.audio.pause();
         //  this.promptToPlayAgain(this.document);
        }
