@@ -8,7 +8,7 @@ class Game {
     this.walker = new Walker();
     this.tree = new Tree();
     this.bird = new Bird();
-    this.musicPlaying = false;
+    // this.musicPlaying = false;
     this.audio = document.getElementById('playback');
     this.button = document.getElementById('music');
     this.button.addEventListener('click', (e) => this.handleClick(e));
@@ -31,8 +31,9 @@ class Game {
   }
 
   run(){
-    this.audio.play();
-    this.musicPlaying = true;
+
+    if (!localStorage.getItem('noMusic')) this.audio.play();
+    // this.musicPlaying = true;
     this.startTrees(this.i, this.xCord, this.timer, this.tree);
     this.startBird(this.xCord);
     this.document.addEventListener('keypress', (e) => {
@@ -44,13 +45,16 @@ class Game {
   }
 
   handleClick(e) {
-    if (this.musicPlaying) {
+    // debugger
+    if (!localStorage.getItem('noMusic')) {
       this.musicPlaying = false;
       this.audio.pause();
+      localStorage.setItem('noMusic', 'true');
       e.currentTarget.blur();
-    } else {
+    } else if (localStorage.getItem('noMusic') === 'true'){
       this.musicPlaying = true;
       this.audio.play();
+      localStorage.removeItem('noMusic');
       e.currentTarget.blur();
     }
   }
@@ -97,6 +101,7 @@ class Game {
          this.playing = false;
          this.walker.die(this.points, this.ctx, this.walker.man[3], 30, 60);
          this.audio.pause();
+         localStorage.setItem("music", music);
         //  this.promptToPlayAgain(this.document);
        }
        // start new tree if current tree is off the canvas
