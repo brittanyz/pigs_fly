@@ -261,7 +261,7 @@ class Game {
       counter++;
 
       // caught bird
-      if (((x >= 100 && x <= 160) && this.walker.y < 155)) {
+      if (((x >= 80 && x <= 155) && this.walker.y < 155)) {
             this.ctx.clearRect(x, this.birdY, 55, 100);
             this.points += 20;
             this.displayBirdPoints();
