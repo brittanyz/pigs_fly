@@ -169,7 +169,7 @@ class Game {
     this.startBird(this.xCord);
     this.document.addEventListener('keypress', (e) => {
       e.preventDefault();
-      if (e.keyCode === 32) {
+      if (e.keyCode === 32 && !this.walker.dead) {
         this.walker.jump(this.ctx, this.walker.man[3], 30, 60, this.count);
       }
     });
