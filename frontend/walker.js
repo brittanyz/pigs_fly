@@ -71,7 +71,7 @@ class Walker {
   gameOver(ctx, points) {
     ctx.fillStyle = "gray";
     ctx.font = '75px Inconsolata';
-    ctx.clearRect(0, 75, 800, 200);
+    ctx.clearRect(0, 25, 800, 175);
     ctx.fillText('Game Over', 215, 150);
     ctx.font = '24px Inconsolata';
     ctx.fillText(`your points: ${points}`, 290, 200);

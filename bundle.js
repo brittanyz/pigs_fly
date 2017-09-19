@@ -132,18 +132,22 @@ module.exports = Welcome;
 const Tree = __webpack_require__(2);
 const Walker = __webpack_require__(3);
 const Bird = __webpack_require__(4);
+const Sky = __webpack_require__(5);
 
 class Game {
 
   constructor(document, ctx, playing) {
+    this.document = document;
+    this.ctx = ctx;
+    this.playing = playing;
     this.walker = new Walker();
     this.tree = new Tree();
     this.bird = new Bird();
+    this.sky = new Sky(this.ctx, this.document);
     // this.musicPlaying = false;
     this.audio = document.getElementById('playback');
     this.button = document.getElementById('music');
     this.button.addEventListener('click', (e) => this.handleClick(e));
-    this.playing = playing;
     this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
     this.secondxCord = 400;
     this.birdY = 100;
@@ -151,8 +155,6 @@ class Game {
     this.pixel = 3;
     this.points = 0;
     this.i = Math.floor(Math.random() * 6);
-    this.document = document;
-    this.ctx = ctx;
     this.treeInterval = {};
     this.birdInterval = {};
     this.count = 0;
@@ -167,6 +169,7 @@ class Game {
     // this.musicPlaying = true;
     this.startTrees(this.i, this.xCord, this.timer, this.tree);
     this.startBird(this.xCord);
+    this.sky.drawSky();
     this.document.addEventListener('keypress', (e) => {
       e.preventDefault();
       if (e.keyCode === 32 && !this.walker.dead) {
@@ -228,6 +231,7 @@ class Game {
           ((x + 50 > 100 && x < 130) && this.walker.y + 55 > 220)) {
          clearInterval(this.treeInterval);
          clearInterval(this.birdInterval);
+         clearInterval(this.sky.cloudOneInterval)
          this.ctx.clearRect(0, 220, 400, 100);
          this.playing = false;
          this.walker.die(this.points, this.ctx, this.walker.man[3], 30, 60);
@@ -423,7 +427,7 @@ class Walker {
   gameOver(ctx, points) {
     ctx.fillStyle = "gray";
     ctx.font = '75px Inconsolata';
-    ctx.clearRect(0, 75, 800, 200);
+    ctx.clearRect(0, 25, 800, 175);
     ctx.fillText('Game Over', 215, 150);
     ctx.font = '24px Inconsolata';
     ctx.fillText(`your points: ${points}`, 290, 200);
@@ -467,6 +471,46 @@ class Bird {
 }
 
 module.exports = Bird;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+class Sky {
+  constructor(ctx, document) {
+    this.ctx = ctx;
+    this.document = document;
+    this.cloud1 = new Image();
+    this.cloud1.src = './images/cloud.png';
+    this.cloudOneInterval = null;
+    this.x = 800;
+  }
+
+  drawSky() {
+    let i = 0;
+    let oneX = this.getRandomSize();
+    let oneY = this.getRandomSize();
+    let height = this.getRandomY();
+    this.cloudOneInterval = setInterval(() => {
+      this.ctx.clearRect(this.x, height, oneX + 20, oneY);
+      if (this.x < -65) this.x = 800;
+      this.x--;
+      this.ctx.drawImage(this.cloud1, this.x, height, oneX + 20, oneY);
+    }, 8);
+  }
+
+  getRandomY() {
+    return Math.floor(Math.random() * (40 - 25) + 25);
+  }
+
+  getRandomSize() {
+    return Math.floor(Math.random() * (65 - 50) + 50);
+  }
+
+}
+
+module.exports = Sky;
 
 
 /***/ })
