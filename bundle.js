@@ -403,7 +403,7 @@ class Walker {
   gameOver(ctx, points) {
     debugger
     let highScore = parseInt(localStorage.getItem("highScore")) || points
-    if (highScore < points) {
+    if (!highScore || highScore < points) {
       localStorage.setItem("highScore", `${points}`);
       highScore = localStorage.getItem("highScore");
     }
