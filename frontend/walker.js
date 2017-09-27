@@ -69,7 +69,10 @@ class Walker {
   gameOver(ctx, points) {
     debugger
     let highScore = parseInt(localStorage.getItem("highScore")) || points
-    if (highScore < points) { localStorage.setItem("highScore", `${points}`) }
+    if (highScore < points) {
+      localStorage.setItem("highScore", `${points}`);
+      highScore = localStorage.getItem("highScore");
+    }
     ctx.fillStyle = "gray";
     ctx.font = '75px Inconsolata';
     ctx.clearRect(0, 25, 800, 175);
@@ -77,7 +80,7 @@ class Walker {
     ctx.font = '24px Inconsolata';
     ctx.fillText(`your points: ${points}`, 290, 200);
     ctx.font = '24px Inconsolata';
-    ctx.fillText(`your high score: ${localStorage.getItem("highScore")}`, 250, 230)
+    ctx.fillText(`your high score: ${highScore}`, 250, 230)
     setTimeout( () => {
       location.reload();
     }, 2500);
