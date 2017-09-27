@@ -39,6 +39,7 @@ class Welcome  {
   }
 
   play(playing) {
+    this.document.getElementById("music").style.visibility = "hidden";
     this.document.addEventListener('keypress', (e) => {
       // enter to play again, but disable once a round starts
       e.preventDefault();

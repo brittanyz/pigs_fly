@@ -33,7 +33,7 @@ class Game {
   }
 
   run(){
-
+    this.document.getElementById("music").style.visibility = "visible";
     if (!localStorage.getItem('noMusic')) this.audio.play();
     // this.musicPlaying = true;
     this.startTrees(this.i, this.xCord, this.timer, this.tree);

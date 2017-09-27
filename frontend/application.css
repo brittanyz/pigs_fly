@@ -9,11 +9,16 @@ body {
   padding-top: 50px;
 }
 
+.paper {
+  background-size: cover;
+  /*background-image: url('../backgroundPaper.png');*/
+}
+
 canvas {
-  /*background-color: #c4e3ed;*/
+  background-color: white;
   width: 800px;
   height: 400px;
-  background-color: white;
+  /*background-color: transparent;*/
   border: 10px solid black;
   font-family: 'Inconsolata';
   /*font-size: 75px;*/
@@ -44,5 +49,6 @@ p  {
 #music {
   background-color: #cce6ff;
   height: 40px;
+  border: 2px solid darkgray;
   border-radius: 25px;
 }
