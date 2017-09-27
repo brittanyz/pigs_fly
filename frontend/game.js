@@ -62,25 +62,6 @@ class Game {
     }
   }
 
-  // resetGame(){
-  //   clearInterval(this.walker.jumping);
-  //   clearInterval(this.walker.stroll);
-  //   clearInterval(this.treeInterval);
-  //   clearInterval(this.birdInterval);
-  //   this.audio = document.getElementById('playback');
-  //   this.button = document.getElementById('music');
-  //   this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
-  //   this.timer = 7;
-  //   this.pixel = 3;
-  //   this.points = 0;
-  //   this.walker.y = 260;
-  //   this.walker.dead = false;
-  //   this.walker.walk(this.ctx);
-  //   this.displayRoad();
-  //   this.startBird(this.xCord);
-  //   this.startTrees(this.i, this.xCord, this.timer, this.tree);
-  //   if (this.musicPlaying) this.audio.play();
-  // }
 
   displayRoad() {
     this.ctx.fillStyle = "black";
@@ -106,7 +87,6 @@ class Game {
          this.walker.die(this.points, this.ctx, this.walker.man[3], 30, 60);
          this.audio.pause();
          localStorage.setItem("music", music);
-        //  this.promptToPlayAgain(this.document);
        }
        // start new tree if current tree is off the canvas
       if (x < -70) {

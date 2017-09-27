@@ -12,7 +12,6 @@ class Walker {
     this.deadman = new Image();
     this.deadman.src = './images/deadman.png';
 
-    // this.jumped = false;
     this.jumping = null;
     this.stroll = null;
     this.dead = false;
@@ -32,7 +31,6 @@ class Walker {
           clearInterval(this.jumping);
           ctx.rect(0, 320, 800, 3);
           ctx.fill();
-          // ctx.rotate(20 * Math.PI/180);
         }
         ctx.clearRect(this.x, this.y, width, height);
         if (this.y >= 90 && up) {
@@ -69,12 +67,17 @@ class Walker {
   }
 
   gameOver(ctx, points) {
+    // debugger
+    let highScore = parseInt(localStorage.getItem("highScore")) || points
+    if (highScore < points) { localStorage.setItem("highScore", `${points}`) }
     ctx.fillStyle = "gray";
     ctx.font = '75px Inconsolata';
     ctx.clearRect(0, 25, 800, 175);
     ctx.fillText('Game Over', 215, 150);
     ctx.font = '24px Inconsolata';
     ctx.fillText(`your points: ${points}`, 290, 200);
+    ctx.font = '24px Inconsolata';
+    ctx.fillText(`your high score: ${localStorage.getItem("highScore")}`, 250, 230)
     setTimeout( () => {
       location.reload();
     }, 2500);

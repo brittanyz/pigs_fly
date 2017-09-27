@@ -194,25 +194,6 @@ class Game {
     }
   }
 
-  // resetGame(){
-  //   clearInterval(this.walker.jumping);
-  //   clearInterval(this.walker.stroll);
-  //   clearInterval(this.treeInterval);
-  //   clearInterval(this.birdInterval);
-  //   this.audio = document.getElementById('playback');
-  //   this.button = document.getElementById('music');
-  //   this.xCord = Math.floor(Math.random() * (1500 - 780) + 780 );
-  //   this.timer = 7;
-  //   this.pixel = 3;
-  //   this.points = 0;
-  //   this.walker.y = 260;
-  //   this.walker.dead = false;
-  //   this.walker.walk(this.ctx);
-  //   this.displayRoad();
-  //   this.startBird(this.xCord);
-  //   this.startTrees(this.i, this.xCord, this.timer, this.tree);
-  //   if (this.musicPlaying) this.audio.play();
-  // }
 
   displayRoad() {
     this.ctx.fillStyle = "black";
@@ -238,7 +219,6 @@ class Game {
          this.walker.die(this.points, this.ctx, this.walker.man[3], 30, 60);
          this.audio.pause();
          localStorage.setItem("music", music);
-        //  this.promptToPlayAgain(this.document);
        }
        // start new tree if current tree is off the canvas
       if (x < -70) {
@@ -369,7 +349,6 @@ class Walker {
     this.deadman = new Image();
     this.deadman.src = './images/deadman.png';
 
-    // this.jumped = false;
     this.jumping = null;
     this.stroll = null;
     this.dead = false;
@@ -389,7 +368,6 @@ class Walker {
           clearInterval(this.jumping);
           ctx.rect(0, 320, 800, 3);
           ctx.fill();
-          // ctx.rotate(20 * Math.PI/180);
         }
         ctx.clearRect(this.x, this.y, width, height);
         if (this.y >= 90 && up) {
@@ -426,12 +404,17 @@ class Walker {
   }
 
   gameOver(ctx, points) {
+    // debugger
+    let highScore = parseInt(localStorage.getItem("highScore")) || points
+    if (highScore < points) { localStorage.setItem("highScore", `${points}`) }
     ctx.fillStyle = "gray";
     ctx.font = '75px Inconsolata';
     ctx.clearRect(0, 25, 800, 175);
     ctx.fillText('Game Over', 215, 150);
     ctx.font = '24px Inconsolata';
     ctx.fillText(`your points: ${points}`, 290, 200);
+    ctx.font = '24px Inconsolata';
+    ctx.fillText(`your high score: ${localStorage.getItem("highScore")}`, 250, 230)
     setTimeout( () => {
       location.reload();
     }, 2500);
