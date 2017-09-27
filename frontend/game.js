@@ -155,6 +155,9 @@ class Game {
     }, 3);
   }
 
+  module.exports = Game;
+
+  
   // promptToPlayAgain(document) {
     // location.reload();
     // document.addEventListener('keypress', (e) => {
@@ -168,5 +171,3 @@ class Game {
     // });
   // }
 }
-
-module.exports = Game;

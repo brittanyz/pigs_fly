@@ -1,22 +1,16 @@
-# JavaScript Project
+# Tree Jumper
 
 ### Background
-This game will be a slightly more complex implementation of google's dinosaur game. This is a 1-player game that plays out over a moving landscape. The player will encounter obstacles to jump over collecting points along the way.  The further the player gets the faster he will move and the harder it will be to avoid the obstacles.
+This game will be a slightly more complex implementation of Google's dinosaur game. This is a 1-player game that plays out over a moving landscape. The player will encounter obstacles (trees) to jump over collecting points along the way. There will be birds flying overhead that he/she can catch for extra points. The further the player gets the faster the obstacles will move, making it easier to clear the trees when jumping but much harder to predict timing and catch birds simultaneously. The player can choose to turn the sound off if he/she prefers. When the game is over your score will be displayed as well as your highest score.
 
 ### Functionality
-Users will be able to
-* start, pause, and reset the game
-* jump to avoid obstacles
-
-In addition this project will include an about modal describing the rules of the game and a production README.
+* Press Enter to begin
+* Press the space bar to jump
 
 ### Technologies, Libraries, APIs
-My plan is to use only JS and canvas, but it's hard to plan for this seeing as though I have very limited knowledge and experience with it.
+I've used strictly vanilla JavaScript in this project in an effort to utilize all that
+the language has to offer in its purest form.
 
-### Timeline
-* Phase 1: Introduction and help modal
-* Phase 2: Implement the moving landscape
-* Phase 3: Jumping, any visual representation of points, and Game Over
 
 ### Wireframe
 ![](/wireframe.png)

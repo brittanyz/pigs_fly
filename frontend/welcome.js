@@ -1,6 +1,4 @@
 const Game = require("./game");
-// const Tree = require("./trees");
-// const Walker = require('./walker');
 
 window.addEventListener("load", () => {
   const canvas = document.getElementById('canvas');
