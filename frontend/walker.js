@@ -67,6 +67,7 @@ class Walker {
   }
 
   gameOver(ctx, points) {
+    debugger
     let highScore = parseInt(localStorage.getItem("highScore")) || points
     if (highScore < points) { localStorage.setItem("highScore", `${points}`) }
     ctx.fillStyle = "gray";
@@ -80,7 +81,6 @@ class Walker {
     setTimeout( () => {
       location.reload();
     }, 2500);
-  //  ctx.fillText('Would you like to play again? (press "y")', 200 ,200);
   }
 }
 

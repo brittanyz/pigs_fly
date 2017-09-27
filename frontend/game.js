@@ -62,7 +62,6 @@ class Game {
     }
   }
 
-
   displayRoad() {
     this.ctx.fillStyle = "black";
     this.ctx.clearRect(0, 0, 800, 400);
@@ -155,9 +154,6 @@ class Game {
     }, 3);
   }
 
-  module.exports = Game;
-
-  
   // promptToPlayAgain(document) {
     // location.reload();
     // document.addEventListener('keypress', (e) => {
@@ -171,3 +167,5 @@ class Game {
     // });
   // }
 }
+
+module.exports = Game;
